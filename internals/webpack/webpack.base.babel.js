@@ -13,6 +13,10 @@ module.exports = (options) => ({
   }, options.output), // Merge with env dependent settings
   module: {
     loaders: [{
+   test: /\.scss$/,
+   exclude: /node_modules/,
+   loaders: ['style-loader', 'css-loader', 'sass-loader']
+ }, {
       test: /\.js$/, // Transform all .js files required somewhere with Babel
       loader: 'babel-loader',
       exclude: /node_modules/,
