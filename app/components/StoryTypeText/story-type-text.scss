@@ -3,7 +3,7 @@
 /* Left Theme */
 .story-type-text.left {
   background: url('https://femmebot.github.io/google-type/images/indigo-sea.jpg') no-repeat center;
-  background-size: cover;
+  background-size: cover !important;
   padding: 40px 20px 80px 20px;
 
   .inner {
@@ -15,14 +15,12 @@
       font: 32px/42px 'Open Sans', sans-serif;
       font-weight: 800;
       text-transform: uppercase;
-      text-align: left;
       letter-spacing: 1px;
       padding: 20px 20px 0 20px;
     }
 
     p, ul, ol {
       font: 18px/27px 'Gentium Basic', serif;
-      text-align: left;
       max-width: 500px;
     }
 
@@ -41,6 +39,7 @@
       display: inline-block;
       .ql-editor {
         padding: 0;
+        text-align: unset;
       }
       p {
         margin-bottom: 1em;

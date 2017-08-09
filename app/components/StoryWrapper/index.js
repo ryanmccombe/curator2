@@ -13,17 +13,44 @@ import messages from './messages';
 import StoryTypeText from '../StoryTypeText'
 import StoryTypeTwoColumnQuote from '../StoryTypeTwoColumnQuote'
 
+import './story-wrapper.scss';
+
 class StoryWrapper extends React.PureComponent {
-  state = { visible: false };
-  toggleVisibility = () => this.setState({ visible: !this.state.visible });
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      visible: false,
+      storyOptions: {}
+    };
+    this.toggleVisibility = () => this.setState({ visible: !this.state.visible });
+    this.editStory = this.editStory.bind(this);
+  }
+
 
   selectStoryComponent(storyType) {
     switch(storyType) {
       case 'text':
-        return <StoryTypeText />;
+        return {
+          Component: StoryTypeText,
+          Options: StoryTypeText.Options,
+        };
       case 'two-column-quote':
-        return <StoryTypeTwoColumnQuote />;
+        return {
+          Component: StoryTypeTwoColumnQuote,
+          Options: StoryTypeTwoColumnQuote.Options,
+        };
     }
+  }
+
+  // TODO: Move to redux
+  editStory(property, value) {
+    this.setState({
+      storyOptions: {
+        ...this.state.storyOptions,
+        [property]: value,
+      },
+    });
   }
 
   render() {
@@ -46,6 +73,8 @@ class StoryWrapper extends React.PureComponent {
       value: 'partition'
     }];
 
+    const { Component, Options } = this.selectStoryComponent(story.type);
+
     return (
       <Sidebar.Pushable>
         <Sidebar
@@ -55,27 +84,21 @@ class StoryWrapper extends React.PureComponent {
           visible={visible}
         >
           <Segment basic>
-            <Form>
-              <Form.Input label="Alignment" />
-              <Form.Input label="Background Image" />
-              <Form.Input label="Space above content" />
-              <Form.Input label="Space below content" />
-              <Button type="submit" onClick={this.toggleVisibility}>Save</Button>
-            </Form>
+            <Options onChange={this.editStory} onClose={this.toggleVisibility} />
           </Segment>
         </Sidebar>
-        <Sidebar.Pusher>
-          <Container style={{ height: 0, position: 'relative', top: '2em', right: 4 }} textAlign="right">
+        <Sidebar.Pusher className="story">
+          <Container className="story-toolbar" style={{ height: 0, position: 'relative', top: '2em', right: 4, zIndex: 5 }} textAlign="right">
             <Dropdown defaultValue="partition" selection options={themes} button style={{ background: 'rgba(255,255,255,0.5)' }}>
             </Dropdown>
             <Button icon onClick={this.toggleVisibility} style={{background: 'rgba(255,255,255,0.5)' }}>
               <Icon name="setting" />
             </Button>
-            <Button icon onClick={() => this.props.onRemove(this.props.index)} style={{ background: 'rgba(255,255,255,0.5)' }}>
+            <Button icon onClick={() => this.props.onRemove(this.props.id)} style={{ background: 'rgba(255,255,255,0.5)' }}>
               <Icon name="trash" />
             </Button>
           </Container>
-          {this.selectStoryComponent(story.type)}
+          <Component {...this.state.storyOptions} />
         </Sidebar.Pusher>
       </Sidebar.Pushable>
     );

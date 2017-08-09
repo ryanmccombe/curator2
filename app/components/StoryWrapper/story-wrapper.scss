@@ -1,0 +1,15 @@
+.story-toolbar {
+  visibility: hidden;
+}
+
+.story:hover .story-toolbar {
+  visibility: visible;
+}
+
+.story-toolbar > div, .story-toolbar > button {
+  opacity: 0.2;
+}
+
+.story-toolbar div:hover, .story-toolbar button:hover {
+  opacity: 1;
+}

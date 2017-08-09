@@ -1,4 +1,5 @@
 import React from 'react';
+import _ from 'lodash';
 
 import Header from '../../components/Header';
 import SubHeader from '../../components/Subheader';
@@ -11,8 +12,10 @@ export default class HomePage extends React.PureComponent {
     this.state = {
       stories: [
         {
+          id: 1,
           type: 'text'
         }, {
+          id: 2,
           type: 'two-column-quote'
         }
       ]
@@ -23,8 +26,8 @@ export default class HomePage extends React.PureComponent {
   }
 
   renderStories() {
-    return this.state.stories.map((story, index) =>
-      <StoryWrapper key={index} index={index} story={story} onEdit={this.editStory} onRemove={this.removeStory} />
+    return this.state.stories.map((story) =>
+      <StoryWrapper key={story.id} id={story.id} story={story} onEdit={this.editStory} onRemove={this.removeStory} />
     )
   }
 
@@ -32,23 +35,23 @@ export default class HomePage extends React.PureComponent {
   addStory(type) {
     this.setState((state) => {
       return {
-        stories: state.stories.concat({ type })
+        stories: state.stories.concat({
+          id: this.state.stories.length ? this.state.stories[this.state.stories.length-1].id + 1 : 1,
+          type
+        })
       }
     })
   }
 
   // TODO: Move to redux
-  removeStory(index) {
+  removeStory(id) {
+    console.log(id);
+    console.log(this.state.stories);
     this.setState((state) => {
       return {
-        stories: state.stories.splice(index - 1, 1)
+        stories: state.stories.filter(story => story.id !== id)
       }
     })
-  }
-
-  // TODO: Move to redux
-  editStory(key, property, value) {
-
   }
 
   render() {

@@ -10,6 +10,7 @@ import React from 'react';
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
 
+import { Form, Button} from 'semantic-ui-react';
 import './story.scss';
 
 class StoryB extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
@@ -30,6 +31,20 @@ It lasted until 1 January 1949, with the establishment of a ceasefire line.</p>
         </div>
       </div>
     );
+  }
+
+  static Options = class extends React.PureComponent {
+    render() {
+      return (
+        <Form>
+          <Form.Input label="Alignment" />
+          <Form.Input label="Background Image" />
+          <Form.Input label="Space above content" />
+          <Form.Input label="Space below content" />
+          <Button type="submit" onClick={this.props.onClose}>Save</Button>
+        </Form>
+      )
+    }
   }
 }
 
