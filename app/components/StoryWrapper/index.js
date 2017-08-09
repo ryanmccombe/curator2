@@ -57,18 +57,9 @@ class StoryWrapper extends React.PureComponent {
     const { visible } = this.state;
     const { story } = this.props;
     const themes = [{
-      text: 'BBC Red',
-      value: 'bbcred'
-    }, {
-      text: 'BBC White',
-      value: 'bbcwhite'
-    }, {
-      text: 'Black & British',
-      value: 'blackbritish'
-    }, {
-      text: 'Lion',
-      value: 'lion'
-    }, {
+      text: 'Default',
+      value: 'default'
+    },{
       text: 'Partition',
       value: 'partition'
     }];
@@ -89,7 +80,7 @@ class StoryWrapper extends React.PureComponent {
         </Sidebar>
         <Sidebar.Pusher className="story">
           <Container className="story-toolbar" style={{ height: 0, position: 'relative', top: '2em', right: 4, zIndex: 5 }} textAlign="right">
-            <Dropdown defaultValue="partition" selection options={themes} button style={{ background: 'rgba(255,255,255,0.5)' }}>
+            <Dropdown placeholder="Select a Theme" onChange={(e, { value }) => this.editStory('theme', value)} selection options={themes} button style={{ background: 'rgba(255,255,255,0.5)' }}>
             </Dropdown>
             <Button icon onClick={this.toggleVisibility} style={{background: 'rgba(255,255,255,0.5)' }}>
               <Icon name="setting" />

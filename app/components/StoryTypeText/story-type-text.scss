@@ -1,7 +1,5 @@
-/* Base Styles */
-
-/* Left Theme */
-.story-type-text.left {
+/* Base Theme */
+.story-type-text {
   background: url('https://femmebot.github.io/google-type/images/indigo-sea.jpg') no-repeat center;
   background-size: cover !important;
   padding: 40px 20px 80px 20px;
@@ -45,5 +43,17 @@
         margin-bottom: 1em;
       }
     }
+  }
+}
+
+/* Partition */
+.story-type-text.partition {
+  h1, p, ul, ol, blockquote {
+    font-family: 'Roboto', sans-serif;
+    text-transform: unset;
+  }
+  h1 {
+    font-size: 40px;
+
   }
 }

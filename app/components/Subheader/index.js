@@ -34,7 +34,6 @@ class Subheader extends React.PureComponent { // eslint-disable-line react/prefe
           <Menu.Item>
             <Button>Mobile Preview</Button>
           </Menu.Item>
-          <Menu.Item as='a'><Icon name="setting" /></Menu.Item>
         </Menu.Menu>
       </Container>
     </Menu>
