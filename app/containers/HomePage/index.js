@@ -1,60 +1,63 @@
-/*
- * HomePage
- *
- * This is the first thing users see of our App, at the '/' route
- *
- * NOTE: while this component should technically be a stateless functional
- * component (SFC), hot reloading does not currently support SFCs. If hot
- * reloading is not a necessity for you then you can refactor it and remove
- * the linting exception.
- */
-
 import React from 'react';
-import { FormattedMessage } from 'react-intl';
-import { Button, Sidebar, Menu, Icon, Segment, Container, Form, Checkbox, Label } from 'semantic-ui-react';
 
-import messages from './messages';
 import Header from '../../components/Header';
 import SubHeader from '../../components/Subheader';
 import NewStory from '../../components/NewStory';
-import Story from '../../components/Story';
-import StoryB from '../../components/StoryB';
+import StoryWrapper from '../../components/StoryWrapper';
 
-export default class HomePage extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
-  state = { visible: false }
+export default class HomePage extends React.PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      stories: [
+        {
+          type: 'text'
+        }, {
+          type: 'two-column-quote'
+        }
+      ]
+    };
 
-  toggleVisibility = () => this.setState({ visible: !this.state.visible })
+    this.addStory = this.addStory.bind(this);
+    this.removeStory = this.removeStory.bind(this);
+  }
+
+  renderStories() {
+    return this.state.stories.map((story, index) =>
+      <StoryWrapper key={index} index={index} story={story} onEdit={this.editStory} onRemove={this.removeStory} />
+    )
+  }
+
+  // TODO: Move to redux
+  addStory(type) {
+    this.setState((state) => {
+      return {
+        stories: state.stories.concat({ type })
+      }
+    })
+  }
+
+  // TODO: Move to redux
+  removeStory(index) {
+    this.setState((state) => {
+      return {
+        stories: state.stories.splice(index - 1, 1)
+      }
+    })
+  }
+
+  // TODO: Move to redux
+  editStory(key, property, value) {
+
+  }
 
   render() {
-    const { visible } = this.state;
     return (
       <div>
         <Header />
         <SubHeader />
-
-        <Sidebar.Pushable>
-          <Sidebar
-          as={Menu}
-            animation='overlay'
-            direction='right'
-            visible={visible}
-          >
-          <Segment basic>
-            <Form>
-              <Form.Input label='Some Setting' />
-              <Form.Input label='Some Other Setting' />
-              <Form.Input label='Third Setting' />
-              <Button type='submit'>Save</Button>
-            </Form>
-          </Segment>
-          </Sidebar>
-          <Sidebar.Pusher>
-            <Button onClick={this.toggleVisibility}>Toggle Visibility</Button>
-            <Story />
-          </Sidebar.Pusher>
-        </Sidebar.Pushable>
-        <StoryB />
-        <NewStory />
+        {this.renderStories()}
+        <NewStory onAdd={this.addStory} />
       </div>
     );
   }

@@ -54,6 +54,7 @@
     }
 
   .wind {
+    pointer-events: none;
     position: absolute;
     left: -100%;
     background: url('https://femmebot.github.io/google-type/images/wind.png');

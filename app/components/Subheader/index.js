@@ -9,7 +9,7 @@ import React from 'react';
 
 import { FormattedMessage } from 'react-intl';
 import messages from './messages';
-import { Menu, Container, Dropdown, Image, Button, Icon, Input, Label } from 'semantic-ui-react';
+import { Menu, Container, Dropdown, Image, Button, Icon } from 'semantic-ui-react';
 
 class Subheader extends React.PureComponent { // eslint-disable-line react/prefer-stateless-function
   render() {
@@ -32,7 +32,7 @@ class Subheader extends React.PureComponent { // eslint-disable-line react/prefe
 
         <Menu.Menu position='right'>
           <Menu.Item>
-            <Button>partition.bbcrewind.co.uk</Button>
+            <Button>Mobile Preview</Button>
           </Menu.Item>
           <Menu.Item as='a'><Icon name="setting" /></Menu.Item>
         </Menu.Menu>
